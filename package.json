@@ -1,5 +1,5 @@
 {
-  "name": "nyt-article-search",
+  "name": "nyt-archives",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -14,7 +14,7 @@
     "client"
   ],
   "author": "LibLab",
-  "license": "",
+  "license": "MIT",
   "devDependencies": {
     "typescript": "5.3.3"
   },

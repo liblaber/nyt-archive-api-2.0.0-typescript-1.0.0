@@ -1,9 +1,9 @@
 {
-  "name": "NYT Archive",
+  "name": "nyt-archives",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "nyt-article-search": "file:../",
+    "nyt-archives": "file:../",
     "zod": "3.22.0"
   },
   "scripts": {
