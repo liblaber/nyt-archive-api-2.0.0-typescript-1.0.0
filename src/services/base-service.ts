@@ -17,6 +17,10 @@ export class BaseService {
     this.config.environment = environment;
   }
 
+  set timeout(timeout: number) {
+    this.config.timeout = timeout;
+  }
+
   set apiKey(apiKey: string) {
     this.config.apiKey = apiKey;
   }

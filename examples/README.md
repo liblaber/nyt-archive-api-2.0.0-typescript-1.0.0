@@ -1,10 +1,10 @@
-# nyt-article-search
+# nyt-archives
 
-A basic example of how to use the nyt-article-search package.
+A basic example of how to use the nyt-archives package.
 
 ## Installation
 
-In the event `nyt-article-search` is not published to npm, you can install it locally by running the following command in the examples folder:
+In the event `nyt-archives` is not published to npm, you can install it locally by running the following command in the examples folder:
 
 ```sh
 npm run setup
@@ -15,7 +15,7 @@ This will rebuild the parent package and install it locally.
 Otherwise you can install it from npm:
 
 ```sh
-npm install nyt-article-search
+npm install nyt-archives
 ```
 
 ## Usage

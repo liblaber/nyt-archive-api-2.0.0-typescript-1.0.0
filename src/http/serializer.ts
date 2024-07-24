@@ -27,7 +27,7 @@ export function serializeQuery(
   _style = SerializationStyle.FORM,
   explode = true,
 ): string {
-  if (!queryParams) {
+  if (!queryParams || !Object.entries(queryParams).length) {
     return '';
   }
 
@@ -63,21 +63,19 @@ export function serializeQuery(
 export function serializeHeader(
   headers?: Record<string, unknown>,
   explode = false,
-): Record<string, string> {
-  if (!headers) {
-    return {};
+): Record<string, string> | undefined {
+  if (!headers || !Object.entries(headers).length) {
+    return undefined;
   }
 
   return Object.entries(headers).reduce((acc, [key, value]) => {
     if (Array.isArray(value)) {
-      return { ...acc, [key]: value.map(encode).join(',') };
+      return { ...acc, [key]: value.join(',') };
     }
     if (isNonNullObject(value)) {
       const serializedObject = Object.entries(value)
         .map(([objectKey, objectValue]) => {
-          return explode
-            ? `${encode(objectKey)}=${encode(objectValue)}`
-            : `${encode(objectKey)},${encode(objectValue)}`;
+          return explode ? `${objectKey}=${objectValue}` : `${objectKey},${objectValue}`;
         })
         .join(',');
 
@@ -85,18 +83,13 @@ export function serializeHeader(
     }
 
     if (isPrimitive(value)) {
-      return { ...acc, [key]: `${encode(value)}` };
+      return { ...acc, [key]: `${value}` };
     }
     return acc;
   }, {});
 }
 
-function getPathReplaceValue<T>(
-  value: T,
-  key: string,
-  style: SerializationStyle,
-  explode: boolean,
-): string {
+function getPathReplaceValue<T>(value: T, key: string, style: SerializationStyle, explode: boolean): string {
   if (Array.isArray(value)) {
     return serializePathArray(value, key, style, explode);
   }

@@ -9,7 +9,7 @@
 | subType  | string | ❌       |             |
 | caption  | string | ❌       |             |
 | credit   | string | ❌       |             |
-| type\_   | string | ❌       |             |
+| type     | string | ❌       |             |
 | url      | string | ❌       |             |
 | height   | number | ❌       |             |
 | width    | number | ❌       |             |

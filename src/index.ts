@@ -4,7 +4,7 @@ import { Environment } from './http/environment';
 import { SdkConfig } from './http/types';
 import { ArchiveService } from './services/archive';
 
-export class NYTimes Archive {
+export class NytArchives {
   public readonly archive: ArchiveService;
 
   constructor(public config: SdkConfig) {
@@ -22,6 +22,10 @@ export class NYTimes Archive {
 
   set environment(environment: Environment) {
     this.archive.baseUrl = environment;
+  }
+
+  set timeout(timeout: number) {
+    this.archive.timeout = timeout;
   }
 
   set apiKey(apiKey: string) {

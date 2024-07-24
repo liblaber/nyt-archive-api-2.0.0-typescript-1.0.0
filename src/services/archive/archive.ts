@@ -4,7 +4,11 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import { GetByYearMonthJsonOkResponse, getByYearMonthJsonOkResponseResponse } from './models';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import {
+  GetByYearMonthJsonOkResponse,
+  getByYearMonthJsonOkResponseResponse,
+} from './models/get-by-year-month-json-ok-response';
 
 export class ArchiveService extends BaseService {
   /**
@@ -18,16 +22,21 @@ export class ArchiveService extends BaseService {
     month: number,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetByYearMonthJsonOkResponse>> {
-    const path = this.client.buildPath('/{year}/{month}.json', { year: year, month: month });
-    const options: any = {
-      responseSchema: getByYearMonthJsonOkResponseResponse,
-      requestSchema: z.any(),
-      headers: {},
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+    const request = new RequestBuilder<GetByYearMonthJsonOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/{year}/{month}.json')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getByYearMonthJsonOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam('year', year)
+      .addPathParam('month', month)
+      .build();
+    return this.client.call<GetByYearMonthJsonOkResponse>(request);
   }
 }
